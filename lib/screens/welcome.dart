@@ -18,6 +18,7 @@ class WelcomePage extends StatelessWidget {
             children: [
               Text('Welcome', style: textStyle),
               sizedBox,
+              // 3. 이메일 주소 화면에 표시
               Text(AuthController.instance.user.value!.email.toString(), style: textStyle),
               sizedBox,
               Text(AuthController.instance.user.value!.uid.toString(), style: textStyle),

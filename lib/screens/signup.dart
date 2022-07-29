@@ -97,6 +97,7 @@ class SignupPage extends StatelessWidget {
                           BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(12)),
                       child: Obx(
                         () => Center(
+                          // 2. 인디케이터 구현
                           child: AuthController.instance.isLoading.value
                               ? const SizedBox(
                                   height: 20,

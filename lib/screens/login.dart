@@ -69,6 +69,7 @@ class LoginPage extends StatelessWidget {
                   onTap: () async {
                     AuthController.instance.isLoading.value = true;
                     await Future.delayed(const Duration(seconds: 3));
+                    // 1. 로그인 구현
                     AuthController.instance.login(
                         email: emailController.text.trim(),
                         passWord: passwordController.text.trim());
@@ -81,6 +82,7 @@ class LoginPage extends StatelessWidget {
                           BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(12)),
                       child: Obx(
                         () => Center(
+                          // 2. 인디케이터 구현
                           child: AuthController.instance.isLoading.value
                               ? const SizedBox(
                                   height: 20,

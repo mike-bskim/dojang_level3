@@ -10,7 +10,9 @@ class AuthController extends GetxController {
   static AuthController get to => Get.find();
 
   // 아래 3줄은 Getx login 할때 핵심 기본 코드임
+  // Get.find() 대신 접근 가능한 방법
   static AuthController instance = Get.find();
+  // 선언가능한 다른 방식, final _user = Rxn<User?>();, Rxn<User?> get user => _user;
   late Rx<User?> _user;
   FirebaseAuth authentication = FirebaseAuth.instance;
 
@@ -26,6 +28,7 @@ class AuthController extends GetxController {
     super.onReady();
     debugPrint('AuthController >> onReady');
     _user = Rx<User?>(authentication.currentUser);
+    // 스트림 처리
     _user.bindStream(authentication.userChanges());
     // ever(listener, callback)
     ever(_user, _moveToPage);
@@ -60,6 +63,7 @@ class AuthController extends GetxController {
       await authentication
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((value) => debugPrint('생성완료:[${value.user}]'));
+      // 4. sign up 할때 사용자 이름도 입력받고 그걸 Storage 에 user 컬렉션 아래에 추가할것.
       var doc = FirebaseFirestore.instance.collection('users').doc(user.value!.uid);
       await doc.set({
         'id': doc.id,
@@ -86,6 +90,7 @@ class AuthController extends GetxController {
     }
   }
 
+  // 1. 로그인 구현
   void login({required String email, required String passWord}) async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: passWord);

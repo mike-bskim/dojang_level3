@@ -7,6 +7,7 @@ import 'screens/login.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  // 인젝션 방식이 다른 스타일임
   await Firebase.initializeApp().then((value) => Get.put(AuthController()));
   runApp(const MyApp());
 }
